@@ -1,4 +1,4 @@
-package com.githup.yafeiwang1240.httpclient;
+package com.github.yafeiwang1240.httpclient;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.client.fluent.Request;
