@@ -24,7 +24,7 @@ public class App {
         send.put("task_name", task_name);
         send.put("params", params);
         send.put("comment", comment);
-        String rtn = HttpXMLClient.post("http://oct.lietou.com/approvalTask/submit.json", send);
+        String rtn = HttpXMLClient.post("http://xxx.xxx/approvalTask/submit.json", send);
         System.out.println(rtn);
     }
 
