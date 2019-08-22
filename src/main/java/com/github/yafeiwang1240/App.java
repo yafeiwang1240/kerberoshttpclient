@@ -15,6 +15,28 @@ import java.util.Map;
 public class App {
 
     public static void main(String[] args) throws Exception {
+        test3();
+    }
+
+    public static void test3() throws Exception {
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("X-Requested-With", "XMLHttpRequest");
+        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+        Long userId = 23464L;
+        String task_name = "leo_dw_fact_mail_examine";
+        String params = "{\"id\":183, \"name\":\"tab_820_mail_05\",\"name\":\"tab_820_mail_05\", \"sql\":\"insert overwrite table wyf_to select *from test.wyf_from;\"}";
+        String comment = "来自任务邮件任务审批";
+        Map<String, Object> send = new HashMap<>();
+        send.put("userId", userId.intValue());
+        send.put("task_name", task_name);
+        send.put("params", params);
+        send.put("comment", comment);
+        Response response = HttpClient.getInstance().execute(HttpClient.EnumHttpMethod.POST, "http://xxx.com/approvalTask/submit.json",
+                send, headers, 100000);
+        System.out.println(response.returnContent().asString());
+    }
+
+    public static void test2() throws Exception {
         Long userId = 23464L;
         String task_name = "leo_dw_fact_mail_examine";
         String params = "{\"id\":183, \"name\":\"tab_820_mail_05\",\"name\":\"tab_820_mail_05\", \"sql\":\"insert overwrite table wyf_to select *from test.wyf_from;\"}";

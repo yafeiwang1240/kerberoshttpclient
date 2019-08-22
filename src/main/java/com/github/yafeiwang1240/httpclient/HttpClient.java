@@ -1,12 +1,17 @@
 package com.github.yafeiwang1240.httpclient;
 
 import com.alibaba.fastjson.JSONObject;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Response;
 import org.apache.http.entity.ContentType;
+import org.apache.http.message.BasicNameValuePair;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -92,6 +97,9 @@ public class HttpClient {
         if (body != null) {
             if (body instanceof String) {
                 response = request.bodyString((String) body, ContentType.APPLICATION_JSON).execute();
+            } else if (body instanceof Map) {
+                List<NameValuePair> data = buildPostData((Map<String, Object>) body);
+                response = request.body(new UrlEncodedFormEntity(data, "UTF-8")).execute();
             } else {
                 response = request.bodyString(JSONObject.toJSONString(body), ContentType.APPLICATION_JSON).execute();
             }
@@ -99,5 +107,21 @@ public class HttpClient {
             response = request.execute();
         }
         return response;
+    }
+
+    private static List<NameValuePair> buildPostData(Map<String, Object> params) {
+        if (params == null || params.size() <= 0) {
+            return new ArrayList<NameValuePair>(0);
+        }
+        List<NameValuePair> ret = new ArrayList<>(params.size());
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            if (key != null && value != null) {
+                NameValuePair np = new BasicNameValuePair(key, value.toString());
+                ret.add(np);
+            }
+        }
+        return ret;
     }
 }
