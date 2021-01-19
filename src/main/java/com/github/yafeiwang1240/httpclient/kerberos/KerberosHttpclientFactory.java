@@ -1,6 +1,6 @@
-package com.github.yafeiwang1240.kerberos;
+package com.github.yafeiwang1240.httpclient.kerberos;
 
-import com.github.yafeiwang1240.kerberos.handler.InvokeHandler;
+import com.github.yafeiwang1240.httpclient.kerberos.handler.InvokeHandler;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;

@@ -1,8 +1,8 @@
-package com.github.yafeiwang1240.kerberos.Login;
+package com.github.yafeiwang1240.httpclient.kerberos.Login;
 
-import com.github.yafeiwang1240.kerberos.config.Config;
-import com.github.yafeiwang1240.kerberos.handler.KerberosCallbackHandler;
-import com.github.yafeiwang1240.kerberos.config.KerberosConfiguration;
+import com.github.yafeiwang1240.httpclient.kerberos.config.Config;
+import com.github.yafeiwang1240.httpclient.kerberos.handler.KerberosCallbackHandler;
+import com.github.yafeiwang1240.httpclient.kerberos.config.KerberosConfiguration;
 
 import javax.security.auth.Subject;
 import javax.security.auth.login.LoginContext;

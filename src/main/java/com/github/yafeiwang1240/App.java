@@ -1,8 +1,8 @@
 package com.github.yafeiwang1240;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.yafeiwang1240.simple.HttpClient;
-import com.github.yafeiwang1240.simple.HttpXMLClient;
+import com.github.yafeiwang1240.httpclient.simple.HttpClient;
+import com.github.yafeiwang1240.httpclient.simple.HttpXMLClient;
 import org.apache.http.client.fluent.Response;
 
 import java.io.IOException;

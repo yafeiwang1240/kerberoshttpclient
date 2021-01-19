@@ -1,4 +1,4 @@
-package com.github.yafeiwang1240.kerberos;
+package com.github.yafeiwang1240.httpclient.kerberos;
 
 import org.apache.http.client.HttpClient;
 

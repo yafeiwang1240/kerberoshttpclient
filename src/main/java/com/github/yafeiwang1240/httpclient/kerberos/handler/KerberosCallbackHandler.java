@@ -1,4 +1,4 @@
-package com.github.yafeiwang1240.kerberos.handler;
+package com.github.yafeiwang1240.httpclient.kerberos.handler;
 
 import javax.security.auth.callback.*;
 import java.io.IOException;

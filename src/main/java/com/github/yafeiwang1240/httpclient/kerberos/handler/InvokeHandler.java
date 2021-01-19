@@ -1,7 +1,7 @@
-package com.github.yafeiwang1240.kerberos.handler;
+package com.github.yafeiwang1240.httpclient.kerberos.handler;
 
-import com.github.yafeiwang1240.kerberos.Login.KerberosLogin;
-import com.github.yafeiwang1240.kerberos.config.Config;
+import com.github.yafeiwang1240.httpclient.kerberos.Login.KerberosLogin;
+import com.github.yafeiwang1240.httpclient.kerberos.config.Config;
 import org.apache.http.auth.AuthSchemeProvider;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.BasicUserPrincipal;

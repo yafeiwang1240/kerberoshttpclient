@@ -1,4 +1,4 @@
-package com.github.yafeiwang1240.kerberos.config;
+package com.github.yafeiwang1240.httpclient.kerberos.config;
 
 import com.sun.security.auth.module.Krb5LoginModule;
 
