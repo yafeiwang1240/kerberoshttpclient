@@ -1,4 +1,4 @@
-package com.github.yafeiwang1240.httpclient;
+package com.github.yafeiwang1240.simple;
 
 import com.alibaba.fastjson.JSONObject;
 import org.apache.http.NameValuePair;

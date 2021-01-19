@@ -1,4 +1,4 @@
-package com.github.yafeiwang1240.httpclient;
+package com.github.yafeiwang1240.simple;
 
 import org.apache.curator.utils.CloseableUtils;
 import org.apache.http.HttpEntity;
