@@ -16,7 +16,7 @@ public class Config {
         config.put("principal", "hadoop/zrk@EXAMPLE.COM");
         config.put("password", "zrk1234567");
         config.put("realm", "EXAMPLE.COM");
-        config.put("kdc", "dig-kerberos-14-209.bj-qa.liepin.inc");
+        config.put("kdc", "10.110.14.209");
         config.put("useKeyTab", "true");
         config.put("keyTab", "D:\\Work\\hadoop.zrk.keytab");
     }
