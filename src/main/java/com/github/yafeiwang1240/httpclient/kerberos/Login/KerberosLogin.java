@@ -1,17 +1,14 @@
 package com.github.yafeiwang1240.httpclient.kerberos.Login;
 
 import com.github.yafeiwang1240.httpclient.kerberos.config.Config;
-import com.github.yafeiwang1240.httpclient.kerberos.handler.KerberosCallbackHandler;
 import com.github.yafeiwang1240.httpclient.kerberos.config.KerberosConfiguration;
+import com.github.yafeiwang1240.httpclient.kerberos.handler.KerberosCallbackHandler;
 
 import javax.security.auth.Subject;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import java.io.Closeable;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -38,7 +35,6 @@ public class KerberosLogin implements Closeable {
             loginContext = new LoginContext("Krb5Login", null,
                     new KerberosCallbackHandler(Config.getConfig("principal"), Config.getConfig("password")),
                     new KerberosConfiguration(Config.getConfig("principal")));
-            init(loginContext);
             loginContext.login();
         } catch (LoginException e) {
             throw new RuntimeException("登录失败", e);
@@ -50,20 +46,6 @@ public class KerberosLogin implements Closeable {
                 throw new RuntimeException("登录失败", e);
             }
         }, 10, 10, TimeUnit.HOURS);
-    }
-
-    private void init(LoginContext loginContext) {
-        Map<String, Object> sharedState = new HashMap<>();
-        sharedState.put("javax.security.auth.login.name", Config.getConfig("principal"));
-        sharedState.put("javax.security.auth.login.password", Config.getConfig("password").toCharArray());
-        try {
-            Field state;
-            state = loginContext.getClass().getDeclaredField("state");
-            state.setAccessible(true);
-            state.set(loginContext, sharedState);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException("密码设置失败", e);
-        }
     }
 
     public Subject getSubject() {
