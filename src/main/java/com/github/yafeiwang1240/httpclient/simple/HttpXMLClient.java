@@ -1,6 +1,5 @@
 package com.github.yafeiwang1240.httpclient.simple;
 
-import org.apache.curator.utils.CloseableUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -43,7 +42,7 @@ public class HttpXMLClient {
 
             return stb.toString();
         } finally {
-            CloseableUtils.closeQuietly(client);
+            client.close();
         }
     }
 
