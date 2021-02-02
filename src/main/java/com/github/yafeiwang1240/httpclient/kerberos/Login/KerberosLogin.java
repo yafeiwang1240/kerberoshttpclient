@@ -41,6 +41,11 @@ public class KerberosLogin implements Closeable {
         }
         service.scheduleWithFixedDelay(() -> {
             try {
+                Subject subject = loginContext.getSubject();
+                loginContext.logout();
+                loginContext = new LoginContext("Krb5Login", subject,
+                        new KerberosCallbackHandler(Config.getConfig("principal"), Config.getConfig("password")),
+                        new KerberosConfiguration(Config.getConfig("principal")));
                 loginContext.login();
             } catch (LoginException e) {
                 throw new RuntimeException("登录失败", e);
