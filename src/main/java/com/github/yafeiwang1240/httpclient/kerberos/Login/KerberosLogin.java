@@ -4,11 +4,14 @@ import com.github.yafeiwang1240.httpclient.kerberos.config.Config;
 import com.github.yafeiwang1240.httpclient.kerberos.config.KerberosConfiguration;
 import com.github.yafeiwang1240.httpclient.kerberos.handler.KerberosCallbackHandler;
 
+import javax.security.auth.DestroyFailedException;
 import javax.security.auth.Subject;
+import javax.security.auth.kerberos.KerberosTicket;
 import javax.security.auth.login.LoginContext;
 import javax.security.auth.login.LoginException;
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -41,12 +44,28 @@ public class KerberosLogin implements Closeable {
         }
         service.scheduleWithFixedDelay(() -> {
             try {
-                Subject subject = loginContext.getSubject();
-                loginContext.logout();
-                loginContext = new LoginContext("Krb5Login", subject,
-                        new KerberosCallbackHandler(Config.getConfig("principal"), Config.getConfig("password")),
-                        new KerberosConfiguration(Config.getConfig("principal")));
+//                Subject subject = loginContext.getSubject();
+//                loginContext.logout();
+//                loginContext = new LoginContext("Krb5Login", subject,
+//                        new KerberosCallbackHandler(Config.getConfig("principal"), Config.getConfig("password")),
+//                        new KerberosConfiguration(Config.getConfig("principal")));
                 loginContext.login();
+                Iterator<Object> iterator = loginContext.getSubject()
+                        .getPrivateCredentials().iterator();
+                while (iterator.hasNext()) {
+                    Object next = iterator.next();
+                    if (next instanceof KerberosTicket) {
+                        KerberosTicket ticket = (KerberosTicket) next;
+                        if (ticket.getEndTime().getTime() < System.currentTimeMillis()) {
+                            iterator.remove();
+                            try {
+                                ticket.destroy();
+                            } catch (DestroyFailedException e) {
+                                // ignore
+                            }
+                        }
+                    }
+                }
             } catch (LoginException e) {
                 throw new RuntimeException("登录失败", e);
             }
