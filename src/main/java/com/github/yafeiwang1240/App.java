@@ -1,6 +1,10 @@
 package com.github.yafeiwang1240;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.yafeiwang1240.httpclient.check.HealthChecker;
+import com.github.yafeiwang1240.httpclient.check.HttpHealthChecker;
+import com.github.yafeiwang1240.httpclient.check.InstanceInfo;
+import com.github.yafeiwang1240.httpclient.check.TcpHealthChecker;
 import com.github.yafeiwang1240.httpclient.simple.HttpClient;
 import com.github.yafeiwang1240.httpclient.simple.HttpXMLClient;
 import org.apache.http.client.fluent.Response;
@@ -15,7 +19,30 @@ import java.util.Map;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        test3();
+        httpCheck("10.110.206.5", 8992);
+    }
+
+    public static void httpCheck(String host, int port) {
+        HealthChecker healthChecker = new HttpHealthChecker("/monitor/http.do22");
+        boolean check = healthChecker.check(new InstanceInfo(host, port));
+        System.out.println(check);
+    }
+
+    /**
+     * 测试tcp接口
+     * @param host
+     * @param port
+     */
+    public static void tcpCheck(String host, int port) {
+        HealthChecker tcpHealthChecker = new TcpHealthChecker();
+        boolean check = tcpHealthChecker.check(new InstanceInfo(host, port));
+        System.out.println(check);
+    }
+
+    public static void Check(String host, int port) {
+        TcpHealthChecker tcpHealthChecker = new TcpHealthChecker();
+        boolean check = tcpHealthChecker.check(new InstanceInfo(host, port));
+        System.out.println(check);
     }
 
     public static void test3() throws Exception {
